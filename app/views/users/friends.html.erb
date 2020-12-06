@@ -1,0 +1,42 @@
+<div class='search-area'>
+  <h3>Search Friends</h3>
+  <%= form_tag search_friend_path, remote: true, method: :get do %>
+    <div class="form-group row">
+      <div class="col-sm-9 no-right-padding">
+        <%= text_field_tag :friend, params[:friend], placeholder: "Name or email", autofocus: true, class: "form-control form-control-lg" %>
+      </div>
+      <div class="col-sm-3 no-left-padding">
+        <%= button_tag  type: :submit, class: "btn btn-success" do %>
+          <%= 'Search' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div id="friend-results">
+
+</div>
+
+<table class="table table-borderless table-hover ">
+  <thead>
+    <tr>
+      <th> First Name </th>
+      <th> Last Name </th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @friends.each do |friend| %>
+    <tr>
+      <td> <%= friend.first_name %> </td>
+      <td> <%= friend.last_name %> </td>
+      <td><%= friend.email %></td>
+      <td> <%= link_to 'Stop Following',friendship_path(friend),method: :delete,data: {confirm: 'Are you sure?' }, class: 'btn btn-xs btn-warning' %> </td>
+      <td><%= link_to "View Profile", user_path(friend), class: "btn btn-s btn-success"%></td>
+    <% end %>
+  </tbody>
+</table>
+<% if @test %>
+<%= @test %>
+<% end %>
